@@ -1,4 +1,4 @@
 #! /usr/bin/env bash
 
-ghc main.hs
+ghc --make -package parsec main.hs
 ./main $1
