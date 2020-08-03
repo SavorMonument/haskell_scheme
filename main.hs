@@ -23,14 +23,26 @@ data LispVal = Atom String
             | List [LispVal]
             | DottedList [LispVal] LispVal
             | Number Integer
+            | Char Char
             | String String
             | Bool Bool
+
+parseChar :: Parser LispVal
+parseChar = do
+            f <- oneOf "\\"
+            s <- string "a" 
+                <|> string "A"
+                <|> string "("
+                <|> string " " 
+                <|> string "space" 
+                <|> string "newline" 
+            let t = [f] ++ [s]
+            return $ String t
 
 parseString :: Parser LispVal
 parseString = do
             char '"'
-            x <- many (oneOf "\"")
-            -- x <- many (oneOf letter <|> symbol <|> "\\")
+            x <- many (anyChar)
             char '"'
             return $ String x
 
