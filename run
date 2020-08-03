@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+ghc main.hs
+./main $1
